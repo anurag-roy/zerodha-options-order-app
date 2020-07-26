@@ -4,7 +4,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
-import SelectedStock from "./SelectedStock";
 import { Grid } from "@material-ui/core";
 
 const ENDPOINT = "http://127.0.0.1:5000";
@@ -21,9 +20,8 @@ const useStyles = makeStyles({
   },
 });
 
-function DataStreamer({ stockA, stockB, tokenA, tokenB }) {
-  const [stockAPrice, setStockAPrice] = useState(0);
-  const [stockBPrice, setStockBPrice] = useState(0);
+const DataStreamer = () => {
+  const [niftyPrice, setNiftyPrice] = useState(0);
 
   const classes = useStyles();
 
@@ -31,16 +29,7 @@ function DataStreamer({ stockA, stockB, tokenA, tokenB }) {
     const socket = socketIOClient(ENDPOINT);
     socket.on("FromKiteTicker", (data) => {
       const response = JSON.parse(data);
-      // console.log(response);
-      response.forEach((t) => {
-        if (t.instrument_token == tokenA) {
-          setStockAPrice(t.depth.buy[1].price);
-        } else if (t.instrument_token == tokenB) {
-          setStockBPrice(t.depth.buy[1].price);
-        } else {
-          console.log("Unidentified stock data received.");
-        }
-      });
+      setNiftyPrice(response.last_price);
     });
   }, []);
 
@@ -48,44 +37,13 @@ function DataStreamer({ stockA, stockB, tokenA, tokenB }) {
     <div>
       <Grid container direction="row" justify="center" alignItems="center" spacing={5}>
         <Grid item>
-          <SelectedStock input={"A"} data={stockA} /> <br />
           <Card className={classes.root}>
             <CardContent>
               <Typography className={classes.title} color="textSecondary" gutterBottom>
-                Live Price <br />
-                {stockA.tradingsymbol}
+                NIFTY 50 Live Price
               </Typography>
               <Typography variant="h5" component="h2">
-                {stockAPrice}
-              </Typography>
-            </CardContent>
-          </Card>
-        </Grid>
-        <Grid item>
-          <SelectedStock input={"B"} data={stockB} /> <br />
-          <Card className={classes.root}>
-            <CardContent>
-              <Typography className={classes.title} color="textSecondary" gutterBottom>
-                Live Price <br />
-                {stockB.tradingsymbol}
-              </Typography>
-              <Typography variant="h5" component="h2">
-                {stockBPrice}
-              </Typography>
-            </CardContent>
-          </Card>
-        </Grid>
-      </Grid>
-
-      <Grid container direction="row" justify="center" alignItems="center" spacing={5}>
-        <Grid item>
-          <Card className={classes.root}>
-            <CardContent>
-              <Typography className={classes.title} color="textSecondary" gutterBottom>
-                Premium
-              </Typography>
-              <Typography variant="h5" component="h2">
-                {stockAPrice + stockBPrice}
+                {niftyPrice}
               </Typography>
             </CardContent>
           </Card>
@@ -93,6 +51,6 @@ function DataStreamer({ stockA, stockB, tokenA, tokenB }) {
       </Grid>
     </div>
   );
-}
+};
 
 export default DataStreamer;
