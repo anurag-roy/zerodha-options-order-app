@@ -1,0 +1,30 @@
+{
+  "name": "zerodha-options-order-app",
+  "version": "1.0.0",
+  "description": "UI for ordering multiple stocks at once",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "login": "node login.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/anurag2pirad/zerodha-options-order-app.git"
+  },
+  "keywords": [
+    "Zerodha"
+  ],
+  "author": "Anurag Roy",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/anurag2pirad/zerodha-options-order-app/issues"
+  },
+  "homepage": "https://github.com/anurag2pirad/zerodha-options-order-app#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "kiteconnect": "^3.1.0",
+    "socket.io": "^2.3.0"
+  }
+}
