@@ -33,20 +33,20 @@ app.use("/mapper", mapperRouter);
 const order = async (stock) => {
   const timestamp = new Date();
   console.log(
-    `Placing order for ${stock.exchange}:${stock.tradingsymbol}, Transaction: ${transactionType}, product: ${product}, quantity: ${quantity}`,
+    `Order placed for ${stock.exchange}:${stock.tradingsymbol}, Transaction: ${stock.transactionType}, product: ${stock.product}, quantity: ${stock.quantity}`,
   );
   console.log(`Time of order: ${timestamp.toUTCString()}`);
 
-  return kc.placeOrder("regular", {
-    exchange: stock.exchange,
-    tradingsymbol: stock.tradingsymbol,
-    transaction_type: stock.transactionType,
-    quantity: stock.quantity,
-    product: stock.product,
-    order_type: "MARKET",
-  });
+  // return kc.placeOrder("regular", {
+  //   exchange: stock.exchange,
+  //   tradingsymbol: stock.tradingsymbol,
+  //   transaction_type: stock.transactionType,
+  //   quantity: stock.quantity,
+  //   product: stock.product,
+  //   order_type: "MARKET",
+  // });
 
-  // return `Order placed for ${stock.exchange}:${stock.tradingsymbol}, Transaction: ${transactionType}, product: ${product}, quantity: ${quantity}`;
+  return `Order placed for ${stock.exchange}:${stock.tradingsymbol}, Transaction: ${stock.transactionType}, product: ${stock.product}, quantity: ${stock.quantity}`;
 };
 
 app.post("/placeOrder", async (request, response) => {
