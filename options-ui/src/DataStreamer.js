@@ -29,7 +29,7 @@ const DataStreamer = () => {
     const socket = socketIOClient(ENDPOINT);
     socket.on("FromKiteTicker", (data) => {
       const response = JSON.parse(data);
-      setNiftyPrice(response.last_price);
+      setNiftyPrice(response[0].last_price);
     });
   }, []);
 
